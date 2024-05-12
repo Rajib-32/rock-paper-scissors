@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rock Paper Scissors</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f5f5;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    button {
+      margin: 10px;
+      padding: 15px 30px;
+      font-size: 18px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #4caf50;
+      color: white;
+    }
+
+    .alert {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 20px;
+      padding: 15px;
+      border-radius: 5px;
+      background-color: #4caf50;
+      color: white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      animation: pop-up 0.5s ease;
+    }
+
+    @keyframes pop-up {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+      }
+      100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Rock Paper Scissors</h1>
+    <button onclick="gamingResult('Rock')">Rock</button>
+    <button onclick="gamingResult('Paper')">Paper</button>
+    <button onclick="gamingResult('Scissors')">Scissors</button>
+    <script>
+      function generateComputerMove() {
+        const randomNumber = Math.random();
+        let computerMove = "";
+        if (randomNumber >= 0 && randomNumber <= 1 / 3) {
+          computerMove = "Rock";
+        } else if (randomNumber > 1 / 3 && randomNumber <= 2 / 3) {
+          computerMove = "Paper";
+        } else if (randomNumber > 2 / 3 && randomNumber <= 1) {
+          computerMove = "Scissors";
+        }
+        return computerMove;
+      }
+
+      function gamingResult(gameParam) {
+        const computerMove = generateComputerMove();
+        let result = "";
+        if (gameParam === "Rock") {
+          if (computerMove === "Rock") {
+            result = "Tie";
+          } else if (computerMove === "Paper") {
+            result = "You lose";
+          } else if (computerMove === "Scissors") {
+            result = "You win";
+          }
+        } else if (gameParam === "Paper") {
+          if (computerMove === "Rock") {
+            result = "You win";
+          } else if (computerMove === "Paper") {
+            result = "Tie";
+          } else if (computerMove === "Scissors") {
+            result = "You lose";
+          }
+        } else if (gameParam === "Scissors") {
+          if (computerMove === "Rock") {
+            result = "You lose";
+          } else if (computerMove === "Paper") {
+            result = "You win";
+          } else if (computerMove === "Scissors") {
+            result = "Tie";
+          }
+        }
+        const alertBox = document.createElement('div');
+        alertBox.classList.add('alert');
+        alertBox.textContent = `You chose ${gameParam}. Computer chose ${computerMove}. ${result}`;
+        document.body.appendChild(alertBox);
+        setTimeout(function() {
+          alertBox.remove();
+        }, 2000);
+      }
+    </script>
+  </div>
+</body>
+</html>
